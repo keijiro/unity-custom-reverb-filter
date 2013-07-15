@@ -3,27 +3,35 @@ using System.Collections;
 
 public class PRCReverb : MonoBehaviour
 {
-
+    // T60 decay time.
     [Range(0.0f, 4.0f)]
     public float
         decayTime = 1.0f;
+
+    // Wet signal ratio.
     [Range(0.0f, 1.0f)]
     public float
         wetMix = 0.1f;
+
+    // Delay lines.
     DelayLine allpass1;
     DelayLine allpass2;
     DelayLine comb1;
     DelayLine comb2;
+
+    // Filter coefficients.
     float allpassCoeff = 0.7f;
     float comb1Coeff;
     float comb2Coeff;
+
+    // Used for error handling.
     string error;
 
     void UpdateParameters ()
-    {   
-        var sampleRate = AudioSettings.outputSampleRate;
-        comb1Coeff = Mathf.Pow (10.0f, (-3.0f * comb1.Length / (decayTime * sampleRate)));
-        comb2Coeff = Mathf.Pow (10.0f, (-3.0f * comb2.Length / (decayTime * sampleRate)));
+    {
+        float scaler = -3.0f / (decayTime * AudioSettings.outputSampleRate);
+        comb1Coeff = Mathf.Pow (10.0f, scaler * comb1.Length);
+        comb2Coeff = Mathf.Pow (10.0f, scaler * comb2.Length);
     }
 
     void Awake ()
