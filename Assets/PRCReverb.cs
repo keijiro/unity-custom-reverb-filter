@@ -40,7 +40,8 @@ public class PRCReverb : MonoBehaviour
                 if ((delay & 1) == 0) {
                     delay++;
                 }
-                // while (!IsPrime(delay)) delay += 2;
+                while (!MathUtil.IsPrime(delay))
+                    delay += 2;
                 delays [i] = delay;
             }
         }
