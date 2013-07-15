@@ -1,3 +1,6 @@
+// Perry's simple reverberator class, based on CCRMA STK library.
+// https://ccrma.stanford.edu/software/stk/
+
 using UnityEngine;
 using System.Collections;
 
